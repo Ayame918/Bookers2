@@ -2,10 +2,9 @@
 
 <% @books.each do |book| %>
   <div>
-    <%= link_to @user_name, user_path(current_user) do %>
-      <%= image_tag book.get_image %>
-    <% end %>
-    <p>タイトル：<%= book.title %></p>
-    <p>感想：<%= book.body %></p>
+    <%= link_to @user_name, book_path(book) %>
+
+    <p><%= book.title %></p>
+    <p><%= book.body %></p>
   </div>
 <% end %>
