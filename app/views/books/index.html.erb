@@ -2,9 +2,15 @@
 
 <% @books.each do |book| %>
   <div>
-    <%= link_to @user_name, book_path(book) %>
-
-    <p><%= book.title %></p>
+    <% if book.user.profile_image.attached? %>
+      <%= image_tag book.user.get_profile_image(100, 100) %>
+    <% else %>
+      <%= image_tag 'no_image', size: "100x100" %>
+    <% end %>
+  </div>
+    <%= link_to book.user.name, user_path(book) %>
+    <p><%= link_to book.title, book_path(book.id) %></p>
     <p><%= book.body %></p>
+    <p><%= link_to "Show", user_path(book.user) %></p>
   </div>
 <% end %>

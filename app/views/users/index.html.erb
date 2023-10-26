@@ -2,7 +2,11 @@
 
 <% @users.each do |user| %>
   <div>
-    <p><%= image_tag user.get_profile_image(100,100) %></p>
+  <% if user.profile_image.attached? %>
+      <%= image_tag user.get_profile_image(100, 100) %>
+    <% else %>
+      <%= image_tag 'no_image', size: "100x100" %>
+    <% end %>
     <p><%= user.name %></p>
     <p><%= link_to "Show", user_path(user) %></p>
   </div>

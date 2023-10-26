@@ -13,7 +13,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
-   def update
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      flash[:success] = "User successfully created."
+      redirect_to @user
+    else
+      flash[:error] = "Error: User creation failed."
+      render :new
+    end
+  end
+  
+  def update
     @user = User.find(params[:id])
     @user.update(user_params)
     redirect_to user_path(@user.id)

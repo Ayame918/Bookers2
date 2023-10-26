@@ -1,6 +1,9 @@
 <h1>User info</h1>
-
-  <%= image_tag @user.get_profile_image(100,100) %>
+  <% if @user.profile_image.attached? %>
+      <%= image_tag @user.get_profile_image(100, 100) %>
+  <% else %>
+      <%= image_tag 'no_image', size: "100x100" %>
+  <% end %>
 <div>
   <p>name <%= @user.name %></p>
   <p>introduction <%= @user.introduction %></p>
