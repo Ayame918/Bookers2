@@ -2,49 +2,74 @@
 <html>
   <head>
     <title>Bookers2</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="https://kit.fontawesome.com/2a6ea5e69f.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-      <div>
-        <%= link_to 'Bookers', root_path %>
-      </div>
-      <ul>
-        <% if user_signed_in? %>
-          <li>
-            <%= link_to 'Home', user_path(current_user) %>
-          </li>
-          <li>
-            <%= link_to 'Users', users_path %>
-          </li>
-          <li>
-            <%= link_to 'Book', books_path %>
-          </li>
-          <li>
-          <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-          </li>
-        <% else %>
-          <li>
-            <%= link_to 'Home', root_path %>
-          </li>
-          <li>
-            <%= link_to 'About', about_path %>
-          </li>
-          <li>
-            <%= link_to "Sign up", new_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to "Log in", new_user_session_path %>
-          </li>
-        <% end %>
-      </ul>
+      <nav class ="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class ="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <%= link_to 'Bookers', root_path %>
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <li class ="nav-item">
+                  <%= link_to ( users_path class: "nav-link text-light") do %><%#個人ページに移動するには%>
+                    <i class="fas fa-home"></i><%= "Home" %>
+                  <% end %>
+                </li>
+                <li class ="nav-item">
+                  <%= link_to ( users_path class: "nav-link text-light") do %>
+                    <i class="fa-solid fa-users"></i><%= "Users"%>
+                  <% end %>
+                </li>
+                <li class ="nav-item">
+                  <%= link_to ( books_path class:"nav-link text-light") do %>
+                    <i class="fa-solid fa-book-open"></i><%= "Books"%>
+                  <% end %>
+                </li>
+                <li class ="nav-item">
+                  <%= link_to( destroy_user_session_path, method: :delete, class: "nav-link text-light") do %>
+                     <i class="fa-solid fa-right-from-bracket"></i><%= "Log out"%>
+                  <% end %>
+                </li>
+              <% else %>
+                <li class ="nav-link text-light">
+                  <i class="fas fa-home"></i>
+                  <%= link_to 'Home', root_path %>
+                </li>
+                <li class ="nav-link text-light">
+                  <%= link_to 'About', about_path %><%#移動先がaboutじゃない%>
+                </li>
+                <li class ="nav-link text-light">
+                  <%= link_to "Sign up", new_user_registration_path %>
+                </li>
+                <li class ="nav-link text-light">
+                  <%= link_to "Log in", new_user_session_path %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
+    <main>
     <%= yield %>
+    </main>
+    <footer>
+      <div class ="container-fluid">
+        <div class ="row">
+          <div class ="mx-auto">
+            <p>CoyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
