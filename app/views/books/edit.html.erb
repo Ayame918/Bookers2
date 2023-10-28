@@ -1,10 +1,32 @@
 <%# Book編集 %>
-<%= form_with model: @book do |f| %>
-  <label for="inputTitle">Title</label>
-  <%= f.text_field :title, autofocus: true, id: "inputTitle" %>
-
-  <label for="inputOpinion">Opinion</label>
-  <%= f.text_area :body, id: "inputOpinion" %>
-
-  <%= f.submit "Update Book" %>
-<% end %>
+<p></p>
+<div class ="container">
+  <div class ="row">
+    <div class ="col-6 mx-auto">
+      <h1>Editing Book</h1>
+      <%= form_with model: @book do |f| %>
+        <div class ="form-group">
+          <label for="inputTitle">Title</label>
+          <%= f.text_field :title, autofocus: true, style: "width:100%", id: "inputTitle" %>
+        </div>
+        <div class ="form-group">
+          <label for="inputOpinion">Opinion</label>
+          <%= f.text_area :body, style: "width:100%", id: "inputOpinion" %>
+        </div>
+        
+        <div class ="row">
+          <div class ="col-4">
+            <div class="actions">
+              <%= f.submit "Update Book", class: "btn btn-success btn-block btn-sm btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+        <%= link_to "Show", book_path(@book) %>
+          |
+        <%= link_to "Back", :back%>
+      
+    </div>
+  </div>
+</div>
