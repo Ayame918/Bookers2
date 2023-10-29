@@ -1,44 +1,52 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @user_name = current_user.name
-    @books = user.books
+    @books = @user.books
+    @book = Book.new
   end
   
   def index
     @users = User.all
-     @user = current_user
+    @book = Book.new
+    @user = current_user
   end
 
   def edit
     @user = User.find(params[:id])
+    if @user !=current_user
+      redirect_to user_path(current_user.id)
+    end
   end
   
   def create
     @user = User.new(user_params)
+      # プロフィール画像をアップロードする場合の処理
+    if params[:user][:profile_image].present?
+      # プロフィール画像を保存または更新するロジックを追加
+      @user.profile_image.attach(params[:user][:profile_image])
+    end
+    
     if @user.save
-      flash[:success] = "User successfully created."
-      redirect_to @user
+      flash[:notice] = "You have created a user successfully."
+      redirect_to user_path(@user)
     else
-      flash[:error] = "Error: User creation failed."
-      render :new
+      render :edit
     end
   end
   
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    if @user.update(user_params)
+      flash[:notice] = "You have updated user successfully."
+      redirect_to user_path(@user)
+    else
+      render :edit
+    end
   end
-
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :introduction)
-  end
-  
-  def user_params
-  params.require(:user).permit(:name, :introduction)
+    params.require(:user).permit(:name,:profile_image, :introduction)
   end
 end

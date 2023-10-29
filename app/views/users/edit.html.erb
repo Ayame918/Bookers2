@@ -4,6 +4,17 @@
       <h2>User info</h2>
       <%= form_with model: @user do |f| %>
         <div class ="form-group">
+          
+          <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <%= @user.errors.count %> error prohibited this obj from being saved:
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>　
           <label for="inputName">Name</label><br>
           <%= f.text_field :name, autofocus: true, id: "inputName",style: "width:100%" %>
         </div>
@@ -29,10 +40,3 @@
     </div>
   </div>
 </div>
-
-  
-  
-
-  
-
-  
