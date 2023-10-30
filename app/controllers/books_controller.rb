@@ -7,43 +7,40 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user = current_user
-     # プロフィール画像をアップロードする場合の処理
-      if params[:book][:profile_image].present?
-      # プロフィール画像を保存または更新するロジックを追加
-        current_user.profile_image.attach(params[:book][:profile_image])
-      end
-    
+   # @user = current_user
+
     if @book.save
       flash[:notice] = "You have created book successfully."
       redirect_to book_path(@book)
     else
       flash.now[:alert] = "Error: Failed to create a book."
       @books = Book.all
+      @user = current_user
       render :index
     end
   end
 
   def index
     @books = Book.all
-    @book = Book.new 
+    @book = Book.new
     #@book.save
     @user = current_user
-  end 
+  end
 
   def show
     @book = Book.find(params[:id])
-    
     @user = @book.user
   end
-  
+
   def update
     @book = Book.find(params[:id])
-    
+
     if @book.update(book_params)
       flash[:notice] = "You have updated book successfully."
       redirect_to book_path(@book)
     else
-      render :index
+      @user = @book.user
+      render :edit
     end
   end
 

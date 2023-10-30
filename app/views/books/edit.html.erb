@@ -4,6 +4,16 @@
     <div class ="col-6 mx-auto">
       <h1>Editing Book</h1>
       <%= form_with model: @book do |f| %>
+        <% if @book.errors.any? %>
+        <div class="alert alert-danger">
+          <%= @book.errors.count %>errors prohibited this obj from being saved:
+          <ul>
+            <% @book.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
         <div class ="form-group">
           <label for="inputTitle">Title</label>
           <%= f.text_field :title, autofocus: true, style: "width:100%", id: "inputTitle" %>
@@ -12,7 +22,7 @@
           <label for="inputOpinion">Opinion</label>
           <%= f.text_area :body, style: "width:100%", id: "inputOpinion" %>
         </div>
-        
+
         <div class ="row">
           <div class ="col-4">
             <div class="actions">
@@ -21,11 +31,11 @@
           </div>
         </div>
       <% end %>
-      
+
         <%= link_to "Show", book_path(@book) %>
           |
         <%= link_to "Back", books_path %>
-      
+
     </div>
   </div>
 </div>

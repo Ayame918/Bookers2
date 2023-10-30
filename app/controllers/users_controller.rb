@@ -19,13 +19,6 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)
-      # プロフィール画像をアップロードする場合の処理
-    if params[:user][:profile_image].present?
-      # プロフィール画像を保存または更新するロジックを追加
-      @user.profile_image.attach(params[:user][:profile_image])
-    end
-    
     if @user.save
       flash[:notice] = "You have created a user successfully."
       redirect_to user_path(@user)
